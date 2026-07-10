@@ -1,76 +1,76 @@
 # CF-Monitor-Mikus
 
-A [Komari Mikus](https://github.com/mikus-loli/komari-mikus) theme port for [CF-Server-Monitor](https://github.com/huilang-me/CF-Server-Monitor) — inject the sakura-pink aesthetic via the admin panel's custom HEAD and SCRIPT fields, without modifying any source code or redeploying.
+将 [Komari Mikus](https://github.com/mikus-loli/komari-mikus) 主题移植到 [CF-Server-Monitor](https://github.com/huilang-me/CF-Server-Monitor) —— 通过后台自定义 HEAD 和 SCRIPT 字段注入樱花粉主题，无需修改源码、无需重新部署。
 
 > [!NOTE]
-> This is not a standalone frontend. It works by injecting CSS and JS into an already-deployed CF-Server-Monitor instance through the admin settings page.
+> 这不是独立前端，需要已部署的 CF-Server-Monitor 实例配合使用。
 
-## Features
+## 功能
 
-- **Sakura color palette** — pink accent (`#e8668a`), deep purple backgrounds, gradient text, soft shadows
-- **Rounded cards with hover lift** — `translateY(-4px)` + top gradient bar on hover
-- **Sakura petals animation** — 14 CSS-animated petals drifting inside the nav card
-- **Mascot character** — floating QWQ.webp in the bottom-right corner (dismissible)
-- **Custom preloader** — loli.gif loading animation with Miku logo and progress bar
-- **Welcome banner** — greeting text + live clock integrated into the nav-area card
-- **Light/dark theme** — full support for CF-Server-Monitor's `body.light` toggle
-- **Button ripple effect** — Material-style touch feedback on all interactive elements
-- **SPA route persistence** — MutationObserver keeps banner, petals, and footer credit alive across page transitions
-- **Footer credit** — auto-appends "Theme by komari-mikus, ported by aloneowo" with links
+- **樱花粉配色** — 主色 `#e8668a`，深紫底色，渐变文字，柔和阴影
+- **圆角卡片悬浮** — hover 上移 4px + 顶部樱花渐变条
+- **樱花飘落动画** — 14 片 CSS 花瓣在导航卡片内飘落
+- **Mascot 角色** — 右下角浮动 QWQ.webp（可点击关闭）
+- **自定义加载界面** — loli.gif 加载动画 + Miku logo + 进度条
+- **欢迎横幅** — 问候语 + 实时时钟，融合在导航卡片内
+- **明暗主题** — 完整适配 CF-Server-Monitor 的 `body.light` 切换
+- **按钮涟漪** — Material 风格点击波纹反馈
+- **SPA 路由持久化** — MutationObserver 保证横幅、樱花、页脚在页面切换后不丢失
+- **页脚署名** — 自动追加 "Theme by komari-mikus, ported by aloneowo"（带链接）
 
-## Quick Start
+## 快速开始
 
-1. Open your CF-Server-Monitor admin panel at `https://your-domain/#/admin`
-2. Go to **Settings** → **Appearance**
-3. Paste the following into **CUSTOM `<HEAD>`**:
+1. 打开 CF-Server-Monitor 后台 `https://你的域名/#/admin`
+2. 进入 **Settings** → **Appearance**
+3. 在 **CUSTOM `<HEAD>`** 中粘贴：
 
 ```html
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/aloneowo0/cf-monitor-mikus@main/theme-mikus/custom_head.css">
 <script src="https://cdn.jsdelivr.net/gh/aloneowo0/cf-monitor-mikus@main/theme-mikus/custom_script.js"></script>
 ```
 
-4. Leave **CUSTOM SCRIPT** empty
-5. Click **Save Configuration**
-6. Hard refresh the frontend (`Ctrl+Shift+R`)
+4. **CUSTOM SCRIPT** 留空
+5. 点击 **Save Configuration**
+6. 强制刷新前台（`Ctrl+Shift+R`）
 
-That's it. Two lines, no copying large blobs.
+两行搞定，不用复制大段代码。
 
-## How It Works
+## 工作原理
 
-| File | Purpose | Loaded via |
-|------|---------|------------|
-| `custom_head.css` | All visual overrides — colors, cards, modals, animations, layout | `<link>` in HEAD |
-| `custom_script.js` | Runtime features — preloader, banner, sakura, mascot, ripple, footer | `<script>` in HEAD |
+| 文件 | 作用 | 加载方式 |
+|------|------|----------|
+| `custom_head.css` | 视觉覆盖 — 配色、卡片、模态框、动画、布局 | `<link>` 注入 HEAD |
+| `custom_script.js` | 运行时功能 — 加载界面、横幅、樱花、mascot、涟漪、页脚 | `<script>` 注入 HEAD |
 
-The CSS overrides CF-Server-Monitor's existing CSS variables (`--bg-primary`, `--accent-pink`, etc.) and restyles every component class (`.server-card`, `.modal-dialog`, `.terminal-header`, etc.) to match the Mikus design language.
+CSS 覆盖 CF-Server-Monitor 的 CSS 变量（`--bg-primary`、`--accent-pink` 等），重新样式化所有组件类名（`.server-card`、`.modal-dialog`、`.terminal-header` 等）。
 
-The JS runs as an IIFE, uses `MutationObserver` to survive Vue SPA route changes, and all resource images (loli.gif, miku.png, QWQ.webp) are served from this repo via jsDelivr CDN.
+JS 以 IIFE 运行，用 MutationObserver 适配 Vue SPA 路由切换，图片资源通过 jsDelivr CDN 从本仓库加载。
 
-## Project Structure
+## 项目结构
 
 ```
 cf-monitor-mikus/
-├── public/                  # Original Komari Mikus theme (by mikus-loli, MIT)
-│   ├── dist/                # Compiled theme assets
+├── public/                  # 原作者 Komari Mikus 主题（MIT）
+│   ├── dist/                # 主题构建产物
 │   │   ├── assets/
 │   │   │   ├── img/         # loli.gif, miku.png, QWQ.webp
-│   │   │   ├── flags/       # Country flag SVGs
-│   │   │   ├── logo/        # OS logo SVGs
-│   │   │   ├── app.js       # Original theme JS
-│   │   │   └── style.css    # Original theme CSS
+│   │   │   ├── flags/       # 国旗 SVG
+│   │   │   ├── logo/        # OS logo SVG
+│   │   │   ├── app.js       # 原主题 JS
+│   │   │   └── style.css    # 原主题 CSS
 │   │   └── index.html
-│   ├── komari-theme.json    # Original theme config
-│   └── mikus.jpg            # Preview screenshot
-├── theme-mikus/             # CF-Server-Monitor port
-│   ├── custom_head.css      # Injected CSS (raw, no <style> wrapper)
-│   ├── custom_head.html     # Same CSS wrapped in <style> (legacy paste method)
-│   └── custom_script.js     # Injected JS (IIFE, no <script> wrapper)
+│   ├── komari-theme.json    # 原主题配置
+│   └── mikus.jpg            # 预览截图
+├── theme-mikus/             # CF-Server-Monitor 移植
+│   ├── custom_head.css      # 注入用 CSS（纯 CSS，无 <style> 标签）
+│   ├── custom_head.html     # 同上但包了 <style>（旧版粘贴方式）
+│   └── custom_script.js     # 注入用 JS（IIFE，无 <script> 标签）
 └── README.md
 ```
 
-## Customization
+## 自定义
 
-All design tokens are CSS variables defined at the top of `custom_head.css`:
+所有设计变量定义在 `custom_head.css` 顶部：
 
 ```css
 :root {
@@ -82,14 +82,14 @@ All design tokens are CSS variables defined at the top of `custom_head.css`:
 }
 ```
 
-Edit, push to your fork, and jsDelivr will serve the updated version (may need [cache purge](https://www.jsdelivr.com/tools/purge)).
+修改后推送到你的 fork，jsDelivr 会自动提供新版本（可能需要[手动刷新缓存](https://www.jsdelivr.com/tools/purge)）。
 
-## Credits
+## 致谢
 
-- **Original theme**: [komari-mikus](https://github.com/mikus-loli/komari-mikus) by [mikus-loli](https://github.com/mikus-loli) (MIT)
-- **Target project**: [CF-Server-Monitor](https://github.com/huilang-me/CF-Server-Monitor) by [huilang-me](https://github.com/huilang-me) (MIT)
-- **Port**: [aloneowo](https://github.com/aloneowo0)
+- **原主题**：[komari-mikus](https://github.com/mikus-loli/komari-mikus) by [mikus-loli](https://github.com/mikus-loli)（MIT）
+- **目标项目**：[CF-Server-Monitor](https://github.com/huilang-me/CF-Server-Monitor) by [huilang-me](https://github.com/huilang-me)（MIT）
+- **移植**：[aloneowo](https://github.com/aloneowo0)
 
-## License
+## 许可证
 
 MIT
