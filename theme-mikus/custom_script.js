@@ -26,7 +26,7 @@
     } catch(e) {}
   }
 
-  var CDN = 'https://cdn.jsdelivr.net/gh/mikus-loli/komari-mikus@main/dist/assets/img/';
+  var CDN = 'https://cdn.jsdelivr.net/gh/aloneowo0/komari-mikus@main/public/dist/assets/img/';
   var MASCOT_URL = CDN + 'QWQ.webp';
   var LOGO_URL = CDN + 'miku.png';
   var LOLI_URL = CDN + 'loli.gif';
