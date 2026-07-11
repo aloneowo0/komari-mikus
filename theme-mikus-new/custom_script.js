@@ -22,10 +22,13 @@
 
   function applyPreloader() {
     var old, preloader, progress, stageIndex, stages, timer, hidden;
-    var isLight = window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches;
-    if (localStorage.getItem('theme_preference') === 'dark') isLight = false;
-    if (localStorage.getItem('theme_preference') === 'light') isLight = true;
-    if (document.body.classList.contains('light')) isLight = true;
+    var isLight = document.body.classList.contains('light')
+      || localStorage.getItem('theme_preference') === 'light'
+      || (!document.body.classList.contains('light')
+          && localStorage.getItem('theme_preference') !== 'dark'
+          && window.matchMedia
+          && window.matchMedia('(prefers-color-scheme: light)').matches);
+    console.log('[mikus] isLight=' + isLight + ' bodyLight=' + document.body.classList.contains('light') + ' themePref=' + localStorage.getItem('theme_preference') + ' prefLight=' + (window.matchMedia ? window.matchMedia('(prefers-color-scheme: light)').matches : 'no-mm'));
     var bg = isLight ? '#f8f6f9' : '#0f0a15';
     var barBg = isLight ? '#e8e0f0' : '#2d2040';
     var textMuted = isLight ? '#6b5a7d' : '#b7a7c8';
