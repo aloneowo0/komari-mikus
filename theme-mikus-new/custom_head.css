@@ -721,8 +721,8 @@ backdrop-filter: blur(12px) saturate(var(--glass-saturate)) !important;
 
 .mikus-welcome {
   position: relative;
-  margin: 16px 0;
-  padding: 20px 28px;
+  margin: 16px 0 8px;
+  padding: 14px 20px;
   z-index: 1;
   animation: mikusGradientShift 8s ease infinite, mikusFadeDown 0.4s ease;
   background: linear-gradient(135deg, var(--bg-card) 0%, var(--bg-hover) 50%, var(--bg-card) 100%);
@@ -740,13 +740,17 @@ backdrop-filter: blur(12px) saturate(var(--glass-saturate)) !important;
 .mikus-deco-3 { width: 100px; height: 100px; background: var(--accent-green); top: 50%; right: 20%; animation: mikusFloat 7s ease-in-out infinite 1s; }
 
 .mikus-welcome-flex { position: relative; z-index: 1; display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap; }
-.mikus-welcome-greet { display: flex; align-items: center; gap: 16px; }
+.mikus-welcome-greet { display: flex; align-items: center; gap: 16px; padding-left: 90px; position: relative; }
 .mikus-greet-icon {
-  width: 110px;
-  height: 110px;
+  width: 150px;
+  height: 150px;
   object-fit: contain;
-  filter: drop-shadow(0 4px 12px rgba(232, 102, 138, 0.35));
+  filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.15));
   animation: mikusBounce 2.4s ease-in-out infinite;
+  position: absolute;
+  top: -55px;
+  left: -40px;
+  z-index: 10;
   transform-origin: bottom center;
 }
 .mikus-greet-info { display: flex; flex-direction: column; gap: 4px; }
@@ -774,17 +778,6 @@ backdrop-filter: blur(12px) saturate(var(--glass-saturate)) !important;
 
 body.light .mikus-welcome { box-shadow: 0 2px 8px rgba(45, 27, 61, 0.05); }
 body.light .mikus-greet-icon { filter: drop-shadow(0 4px 12px rgba(232, 102, 138, 0.25)); }
-
-#mikus-banner.mikus-welcome {
-  background: transparent !important;
-  border: none !important;
-  border-radius: 0 !important;
-  box-shadow: none !important;
-  margin: 0 !important;
-  padding: 8px 0 12px !important;
-  animation: none !important;
-}
-#mikus-banner .mikus-welcome-deco { display: none !important; }
 
 .mikus-sakura {
   position: absolute;
@@ -907,12 +900,12 @@ body.light .login-overlay { background: rgba(248, 246, 249, 0.62) !important; }
   .server-card { padding: 16px !important; }
   .server-card:hover { transform: translateY(-2px) !important; }
   .modal-dialog { border-radius: var(--mikus-radius-lg) !important; margin: 12px !important; max-width: calc(100% - 24px) !important; }
-  .mikus-welcome { padding: 14px 16px; margin: 12px 0; }
-  .mikus-greet-icon { width: 64px; height: 64px; }
+  .mikus-welcome { padding: 12px 14px; margin: 12px 0 6px; }
+  .mikus-welcome-greet { padding-left: 60px; }
+  .mikus-greet-icon { width: 72px; height: 72px; top: -30px; left: -20px; }
   .mikus-greet-text { font-size: 1.1rem; }
   .mikus-time-val { font-size: 1rem; }
   .mikus-welcome-time { align-items: flex-end; }
-  #mikus-banner.mikus-welcome { padding: 6px 0 10px !important; }
   .mikus-deco-1,
   .mikus-deco-2,
   .mikus-deco-3,
