@@ -1281,7 +1281,12 @@ body.light .nav-area {
 .modal-dialog,
 .terminal-header,
 .nav-area,
-.main-panel {
+.main-panel,
+.login-container,
+.panel-header,
+.tab-content,
+.table-wrapper,
+.admin-loading-overlay {
   backdrop-filter: blur(var(--glass-blur, 16px)) !important;
   -webkit-backdrop-filter: blur(var(--glass-blur, 16px)) !important;
 }
@@ -1292,7 +1297,15 @@ body.light .nav-area {
 .btn,
 .filter-tag,
 .stat-bar-container,
-.modal-overlay {
+.modal-overlay,
+.stat-card,
+.toolbar,
+.form-input,
+.form-select,
+.form-textarea,
+.toolbar-input,
+.login-input,
+.settings-grid {
   backdrop-filter: blur(var(--glass-blur-light, 6px)) !important;
   -webkit-backdrop-filter: blur(var(--glass-blur-light, 6px)) !important;
 }
