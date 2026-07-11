@@ -833,8 +833,9 @@ body.light .chart-card:hover {
    28. 登录页
    -------------------------------------------------------------------------- */
 .login-overlay {
-  backdrop-filter: blur(20px) !important;
-  -webkit-backdrop-filter: blur(20px) !important;
+  background: rgba(15, 10, 21, 0.6) !important;
+  backdrop-filter: blur(20px) saturate(1.1) !important;
+  -webkit-backdrop-filter: blur(20px) saturate(1.1) !important;
 }
 
 .login-container {
