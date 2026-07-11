@@ -16,8 +16,7 @@
 
     style.textContent =
       ':root{--glass-blur:5px!important;--glass-blur-light:0px!important;--glass-saturate:1!important;}' +
-      'body::after{display:none!important;}' +
-      'body{background-image:radial-gradient(ellipse at 20% 20%,rgba(255,143,163,.045) 0%,transparent 48%),radial-gradient(ellipse at 80% 80%,rgba(122,179,247,.035) 0%,transparent 48%)!important;background-repeat:no-repeat!important;background-size:100% 100%!important;}' +
+      'body::after{display:block!important;opacity:.72!important;}' +
       '.server-card,.chart-card,.host-card,.settings-section,.table-container,.table-wrapper,.footer,.main-panel,.panel-header,.tab-content,.admin-loading-overlay,.quota-section,.disabled-container,.user-menu-dropdown,.map-wrapper,.status-bar,.global-stats,.stats-grid,.view-toggle,.modal-overlay,.settings-grid,.ping-panel,.time-selector,.tabs{' +
         'backdrop-filter:none!important;-webkit-backdrop-filter:none!important;' +
       '}' +
@@ -32,13 +31,15 @@
         'backdrop-filter:blur(5px)!important;-webkit-backdrop-filter:blur(5px)!important;' +
       '}' +
       '.modal-overlay{background:rgba(0,0,0,.48)!important;}' +
-      '.nav-area,.nav-area::before,.nav-area::after{animation:none!important;}' +
-      '#mikus-mascot img{animation:none!important;filter:drop-shadow(0 4px 10px rgba(232,102,138,.28))!important;}' +
-      '.mikus-sakura-petal:nth-child(even){display:none!important;}' +
+      '.nav-area{animation-duration:18s!important;}' +
+      '.nav-area::before{animation-duration:14s!important;}' +
+      '.nav-area::after{animation-duration:18s!important;}' +
+      '#mikus-mascot img{animation-duration:4.8s!important;filter:drop-shadow(0 4px 10px rgba(232,102,138,.28))!important;}' +
+      '.mikus-sakura-petal{animation-duration:18s!important;}' +
       '.server-card,.chart-card,.host-card,.filter-tag,.stat-item,.stat-card,.sysinfo-item{' +
         'transition:transform .2s ease,border-color .2s ease,background-color .2s ease,box-shadow .2s ease!important;' +
       '}' +
-      '@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;}#mikus-mascot img,.mikus-sakura-petal,.nav-area,.nav-area::before,.nav-area::after{animation:none!important;}}';
+      '@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;}.nav-area,.nav-area::before,.nav-area::after,#mikus-mascot img,.mikus-sakura-petal{animation-duration:1ms!important;animation-iteration-count:1!important;}}';
   }
 
   function injectBannerCorrection() {
