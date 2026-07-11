@@ -1,0 +1,1354 @@
+/* ==========================================================================
+   Komari Mikus Theme — CF-Server-Monitor 注入样式
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. 设计令牌 — 暗色模式（默认）
+   -------------------------------------------------------------------------- */
+:root {
+  --bg-primary: #0f0a15;
+  --bg-primary-gradient: #140e1c;
+  --bg-secondary: rgba(26, 18, 37, 0.70);
+  --bg-card: rgba(30, 21, 48, 0.15);
+  --bg-hover: rgba(38, 28, 58, 0.85);
+  --bg-inset: rgba(15, 10, 21, 0.80);
+  --border-color: #2d2040;
+  --border-active: #3d2a55;
+  --text-primary: #e8dff0;
+  --text-secondary: #a899b8;
+  --text-muted: rgba(232, 223, 240, 0.8);
+  --accent-green: #5ec492;
+  --accent-blue: #7ab3f7;
+  --accent-purple: #b392f0;
+  --accent-pink: #ff8fa3;
+  --accent-yellow: #f5b84a;
+  --accent-red: #ff6b7a;
+  --accent-cyan: #7ab3f7;
+  --input-bg: #150f20;
+  --input-border: #2d2040;
+  --terminal-font: 'SF Mono', 'Fira Code', 'Cascadia Code', Consolas, monospace;
+  --mikus-radius-sm: 8px;
+  --mikus-radius-md: 12px;
+  --mikus-radius-lg: 16px;
+  --mikus-radius-xl: 20px;
+  --mikus-shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.2);
+  --mikus-shadow-md: 0 4px 12px rgba(0, 0, 0, 0.3);
+  --mikus-shadow-card: 0 2px 8px rgba(0, 0, 0, 0.2);
+  --mikus-shadow-lg: 0 8px 30px rgba(0, 0, 0, 0.4);
+  --glass-blur: 12px;
+  --glass-blur-light: 6px;
+  --glass-saturate: 1.1;
+  --sakura-1: #ffb7c5;
+  --sakura-2: #ff8fa3;
+  --sakura-3: #e8668a;
+  --sakura-4: #c94064;
+}
+
+/* --------------------------------------------------------------------------
+   2. 设计令牌 — 浅色模式
+   -------------------------------------------------------------------------- */
+body.light {
+  --bg-primary: #f8f6f9;
+  --bg-primary-gradient: #f0edf3;
+  --bg-secondary: rgba(255, 255, 255, 0.70);
+  --bg-card: rgba(255, 255, 255, 0.12);
+  --bg-hover: rgba(250, 248, 252, 0.85);
+  --bg-inset: rgba(240, 237, 243, 0.78);
+  --border-color: #e8e0f0;
+  --border-active: #d4c8e0;
+  --text-primary: #2d1b3d;
+  --text-secondary: #6b5a7d;
+  --text-muted: rgba(45, 27, 61, 0.8);
+  --accent-green: #4caf7d;
+  --accent-blue: #5c9ced;
+  --accent-purple: #b392f0;
+  --accent-pink: #e8668a;
+  --accent-yellow: #f5a623;
+  --accent-red: #e74c5e;
+  --accent-cyan: #5c9ced;
+  --input-bg: #f0edf3;
+  --input-border: #e8e0f0;
+  --mikus-shadow-sm: 0 1px 3px rgba(45, 27, 61, 0.06);
+  --mikus-shadow-md: 0 4px 12px rgba(45, 27, 61, 0.08);
+  --mikus-shadow-card: 0 2px 8px rgba(45, 27, 61, 0.05);
+  --mikus-shadow-lg: 0 8px 30px rgba(45, 27, 61, 0.12);
+}
+
+/* --------------------------------------------------------------------------
+   3. 扫描线禁用
+   -------------------------------------------------------------------------- */
+body::before {
+  display: none !important;
+}
+
+/* --------------------------------------------------------------------------
+   4. 基础样式
+   -------------------------------------------------------------------------- */
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Noto Sans SC', sans-serif !important;
+  font-size: 14px !important;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* --------------------------------------------------------------------------
+   5. 终端头部
+   -------------------------------------------------------------------------- */
+.terminal-header {
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  background: var(--bg-card) !important;
+  border: 1px solid var(--border-color) !important;
+  border-radius: 0 0 var(--mikus-radius-md, 12px) var(--mikus-radius-md, 12px) !important;
+  border-top: none !important;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  transition: background 0.25s ease;
+}
+
+body.light .terminal-header {
+  background: var(--bg-card) !important;
+}
+
+.terminal-dot {
+  width: 12px !important;
+  height: 12px !important;
+  border-radius: 50% !important;
+  transition: transform 0.2s ease;
+}
+
+.terminal-dot:hover {
+  transform: scale(1.2);
+}
+
+.terminal-dot.red { background: #ff5f56 !important; box-shadow: 0 0 6px rgba(255, 95, 86, 0.4); }
+.terminal-dot.yellow { background: #ffbd2e !important; box-shadow: 0 0 6px rgba(255, 189, 46, 0.4); }
+.terminal-dot.green { background: #27c93f !important; box-shadow: 0 0 6px rgba(39, 201, 63, 0.4); }
+
+.terminal-title {
+  background: linear-gradient(135deg, var(--text-primary) 0%, var(--accent-pink) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-weight: 700 !important;
+}
+
+/* --------------------------------------------------------------------------
+   6. 切换按钮
+   -------------------------------------------------------------------------- */
+.lang-toggle,
+.theme-toggle {
+  border-radius: var(--mikus-radius-sm, 8px) !important;
+  border: 1px solid var(--border-color) !important;
+  background: var(--bg-hover) !important;
+  overflow: hidden;
+}
+
+.lang-btn,
+.theme-btn {
+  border-radius: 6px !important;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+.lang-btn.active {
+  background: var(--accent-pink) !important;
+  color: #fff !important;
+  box-shadow: var(--mikus-shadow-sm) !important;
+}
+
+.theme-btn.active {
+  background: var(--accent-pink) !important;
+  color: #fff !important;
+  box-shadow: var(--mikus-shadow-sm) !important;
+}
+
+/* --------------------------------------------------------------------------
+   7. 管理链接
+   -------------------------------------------------------------------------- */
+.admin-link-header {
+  border-radius: var(--mikus-radius-sm, 8px) !important;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+.admin-link-header:hover {
+  border-color: var(--accent-pink) !important;
+  color: var(--accent-pink) !important;
+}
+
+/* --------------------------------------------------------------------------
+   8. 导航与标题
+   -------------------------------------------------------------------------- */
+.nav-area {
+  border-radius: 0 0 var(--mikus-radius-md, 12px) var(--mikus-radius-md, 12px) !important;
+  border: 1px solid var(--border-color) !important;
+  border-top: none !important;
+}
+
+.site-title {
+  background: linear-gradient(135deg, var(--text-primary) 0%, var(--accent-pink) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-shadow: none !important;
+  font-weight: 700;
+}
+
+/* --------------------------------------------------------------------------
+   9. 视图切换
+   -------------------------------------------------------------------------- */
+.view-toggle {
+  border-radius: var(--mikus-radius-sm, 8px) !important;
+  background: var(--bg-hover) !important;
+  border: 1px solid var(--border-color) !important;
+}
+
+.toggle-btn {
+  border-radius: 6px !important;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+.toggle-btn.active {
+  background: var(--accent-pink) !important;
+  color: #fff !important;
+  position: relative;
+}
+
+.toggle-btn.active::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60%;
+  height: 3px;
+  background: linear-gradient(90deg, var(--sakura-1), var(--sakura-2), var(--sakura-3));
+  border-radius: 3px;
+}
+
+/* --------------------------------------------------------------------------
+   10. 过滤标签
+   -------------------------------------------------------------------------- */
+.filter-tag {
+  border-radius: var(--mikus-radius-sm, 8px) !important;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+.filter-tag:hover {
+  border-color: var(--accent-pink) !important;
+  color: var(--accent-pink) !important;
+}
+
+.filter-tag.active {
+  background: var(--accent-pink) !important;
+  color: #fff !important;
+  border-color: var(--accent-pink) !important;
+  box-shadow: var(--mikus-shadow-sm) !important;
+}
+
+/* --------------------------------------------------------------------------
+   11. 统计栏
+   -------------------------------------------------------------------------- */
+.global-stats {
+  border-radius: var(--mikus-radius-md, 12px) !important;
+  overflow: hidden;
+}
+
+.stat-item {
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+.stat-item:hover {
+  background: var(--bg-hover) !important;
+}
+
+.stat-main-value,
+.stat-main-value-sm {
+  background: linear-gradient(135deg, var(--text-primary) 0%, var(--accent-pink) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-shadow: none !important;
+}
+
+.stat-online-color { color: var(--accent-green) !important; }
+.stat-offline-color { color: var(--accent-red) !important; }
+.stat-net-down-color { color: var(--accent-green) !important; }
+.stat-net-up-color { color: var(--accent-blue) !important; }
+
+/* --------------------------------------------------------------------------
+   12. 服务器卡片 — 核心样式
+   -------------------------------------------------------------------------- */
+.server-card {
+  border-radius: var(--mikus-radius-lg, 16px) !important;
+  padding: 20px !important;
+  background: var(--bg-card) !important;
+  border: 1px solid var(--border-color) !important;
+  box-shadow: var(--mikus-shadow-card) !important;
+  transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1),
+              box-shadow 0.25s cubic-bezier(0.4, 0, 0.2, 1),
+              border-color 0.25s ease !important;
+  position: relative;
+  overflow: hidden;
+}
+
+.server-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--sakura-1), var(--sakura-2), var(--sakura-3));
+  opacity: 0;
+  transition: opacity 0.25s ease;
+  z-index: 1;
+}
+
+.server-card::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, transparent 40%, rgba(255, 255, 255, 0.03) 100%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.server-card:hover {
+  transform: translateY(-4px) !important;
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15), 0 4px 8px rgba(0, 0, 0, 0.08) !important;
+  border-color: var(--accent-pink) !important;
+}
+
+body.light .server-card:hover {
+  box-shadow: 0 12px 24px rgba(45, 27, 61, 0.08), 0 4px 8px rgba(45, 27, 61, 0.04) !important;
+}
+
+.server-card:hover::before {
+  opacity: 1;
+}
+
+/* --------------------------------------------------------------------------
+   13. 状态指示器 — 脉冲动画
+   -------------------------------------------------------------------------- */
+@keyframes mikus-pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.6; transform: scale(0.9); }
+}
+
+.status-indicator {
+  width: 10px !important;
+  height: 10px !important;
+  animation: mikus-pulse 2s ease-in-out infinite;
+}
+
+.pulse-dot {
+  animation: mikus-pulse 2s ease-in-out infinite;
+}
+
+.pulse-dot.online {
+  box-shadow: 0 0 8px var(--accent-green) !important;
+}
+
+.pulse-dot.offline {
+  box-shadow: 0 0 8px var(--accent-red) !important;
+}
+
+/* --------------------------------------------------------------------------
+   14. 服务器名称 — 渐变文字
+   -------------------------------------------------------------------------- */
+.server-name {
+  font-weight: 600 !important;
+  font-size: 0.95rem !important;
+}
+
+/* --------------------------------------------------------------------------
+   15. 进度条 — 渐变填充
+   -------------------------------------------------------------------------- */
+.stat-bar-container {
+  height: 8px !important;
+  border-radius: 4px !important;
+  background: var(--bg-hover) !important;
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.06) !important;
+  overflow: hidden !important;
+}
+
+.stat-bar-fill {
+  border-radius: 4px !important;
+  transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1), background 0.3s ease !important;
+  position: relative !important;
+}
+
+.stat-bar-fill::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 50%;
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0.2), transparent);
+  border-radius: 4px 4px 0 0;
+}
+
+/* --------------------------------------------------------------------------
+   16. 徽章样式
+   -------------------------------------------------------------------------- */
+.badge {
+  border-radius: 4px !important;
+  font-size: 0.65rem !important;
+  padding: 2px 8px !important;
+  font-weight: 600 !important;
+}
+
+.badge-bw { background: var(--accent-blue) !important; color: #fff !important; }
+.badge-tf { background: var(--accent-green) !important; color: #fff !important; }
+.badge-v4 { background: var(--accent-purple) !important; color: #fff !important; }
+.badge-v6 { background: var(--accent-pink) !important; color: #fff !important; }
+
+/* --------------------------------------------------------------------------
+   17. 卡片元数据与过期
+   -------------------------------------------------------------------------- */
+.card-meta-item .expired {
+  color: var(--accent-red) !important;
+}
+
+/* --------------------------------------------------------------------------
+   18. Ping 面板
+   -------------------------------------------------------------------------- */
+.ping-panel {
+  border-radius: var(--mikus-radius-sm, 8px) !important;
+  border: 1px solid var(--border-color) !important;
+  background: var(--bg-hover) !important;
+}
+
+/* --------------------------------------------------------------------------
+   19. 分组区域
+   -------------------------------------------------------------------------- */
+.group-section {
+  margin-bottom: 24px !important;
+}
+
+.group-header {
+  color: var(--accent-pink) !important;
+  position: relative;
+  padding-left: 12px !important;
+  border-bottom: 1px solid var(--border-color) !important;
+}
+
+.group-header::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 3px;
+  height: 16px;
+  background: linear-gradient(180deg, var(--accent-pink), var(--sakura-2));
+  border-radius: 2px;
+  box-shadow: 0 0 8px rgba(232, 102, 138, 0.4);
+}
+
+.group-header::after {
+  content: '';
+  width: 6px;
+  height: 6px;
+  background: var(--accent-pink);
+  border-radius: 50%;
+  opacity: 0.6;
+  animation: mikus-pulse 2s ease-in-out infinite;
+  margin-left: 8px;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.prompt-sign {
+  color: var(--accent-pink) !important;
+}
+
+.group-count {
+  color: var(--text-secondary) !important;
+}
+
+/* --------------------------------------------------------------------------
+   20. 表格视图
+   -------------------------------------------------------------------------- */
+.table-container {
+  border-radius: var(--mikus-radius-md, 12px) !important;
+  overflow: hidden;
+}
+
+.terminal-table {
+  border-radius: var(--mikus-radius-md, 12px) !important;
+  overflow: hidden;
+}
+
+.table-status-indicator-inline {
+  width: 8px !important;
+  height: 8px !important;
+  border-radius: 50% !important;
+}
+
+.stat-bar-small {
+  height: 4px !important;
+  border-radius: 2px !important;
+}
+
+/* --------------------------------------------------------------------------
+   21. 地图容器
+   -------------------------------------------------------------------------- */
+.map-wrapper {
+  border-radius: var(--mikus-radius-md, 12px) !important;
+  box-shadow: var(--mikus-shadow-card) !important;
+  overflow: hidden !important;
+}
+
+#map-container {
+  border-radius: var(--mikus-radius-sm, 8px) !important;
+}
+
+/* --------------------------------------------------------------------------
+   22. 主机卡片详情页
+   -------------------------------------------------------------------------- */
+.host-card {
+  border-radius: var(--mikus-radius-lg, 16px) !important;
+  box-shadow: var(--mikus-shadow-card) !important;
+  overflow: hidden !important;
+}
+
+.host-name {
+  background: linear-gradient(135deg, var(--text-primary) 0%, var(--accent-pink) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-shadow: none !important;
+}
+
+.host-name .prompt {
+  -webkit-text-fill-color: var(--text-secondary);
+}
+
+.status-badge {
+  border-radius: var(--mikus-radius-sm, 8px) !important;
+  padding: 4px 14px !important;
+}
+
+.status-badge.online {
+  background: rgba(94, 196, 146, 0.12) !important;
+  color: var(--accent-green) !important;
+  border-color: rgba(94, 196, 146, 0.3) !important;
+}
+
+body.light .status-badge.online {
+  background: rgba(76, 175, 125, 0.1) !important;
+  border-color: rgba(76, 175, 125, 0.3) !important;
+}
+
+.status-badge.offline {
+  background: rgba(255, 107, 122, 0.12) !important;
+  color: var(--accent-red) !important;
+  border-color: rgba(255, 107, 122, 0.3) !important;
+}
+
+body.light .status-badge.offline {
+  background: rgba(231, 76, 94, 0.1) !important;
+  border-color: rgba(231, 76, 94, 0.3) !important;
+}
+
+.sysinfo-grid {
+  border-radius: var(--mikus-radius-md, 12px) !important;
+  overflow: hidden;
+}
+
+.sysinfo-item {
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  border-radius: 0 !important;
+}
+
+.sysinfo-item:hover {
+  background: var(--bg-hover) !important;
+}
+
+.sysinfo-label {
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-weight: 600 !important;
+  font-size: 0.72rem !important;
+}
+
+.sysinfo-value.highlight {
+  color: var(--accent-pink) !important;
+}
+
+/* --------------------------------------------------------------------------
+   23. 图表卡片
+   -------------------------------------------------------------------------- */
+.chart-card {
+  border-radius: var(--mikus-radius-md, 12px) !important;
+  box-shadow: var(--mikus-shadow-card) !important;
+  overflow: hidden !important;
+  transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1),
+              box-shadow 0.25s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+.chart-card:hover {
+  transform: translateY(-2px);
+  border-color: var(--accent-pink) !important;
+}
+
+body.light .chart-card:hover {
+  box-shadow: 0 4px 20px rgba(45, 27, 61, 0.06) !important;
+}
+
+.chart-card-header {
+  background: rgba(0, 0, 0, 0.15) !important;
+  border-bottom: 1px solid var(--border-color) !important;
+}
+
+.chart-title {
+  text-transform: uppercase !important;
+  letter-spacing: 0.5px !important;
+  position: relative;
+  padding-left: 12px !important;
+}
+
+.chart-title::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 3px;
+  height: 16px;
+  background: linear-gradient(180deg, var(--accent-pink), var(--sakura-2));
+  border-radius: 2px;
+  box-shadow: 0 0 8px rgba(232, 102, 138, 0.4);
+}
+
+.chart-title-icon {
+  color: var(--accent-pink) !important;
+}
+
+.chart-current-value {
+  background: linear-gradient(135deg, var(--text-primary) 0%, var(--accent-pink) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-shadow: none !important;
+}
+
+/* --------------------------------------------------------------------------
+   24. 时间选择器与标签页
+   -------------------------------------------------------------------------- */
+.time-selector,
+.tabs {
+  border-radius: var(--mikus-radius-sm, 8px) !important;
+  background: var(--bg-hover) !important;
+  border: 1px solid var(--border-color) !important;
+}
+
+.time-btn,
+.tab-btn {
+  border-radius: 6px !important;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  position: relative;
+}
+
+.time-btn.active,
+.tab-btn.active {
+  background: var(--accent-pink) !important;
+  color: #fff !important;
+  font-weight: 600 !important;
+}
+
+.time-btn.active::after,
+.tab-btn.active::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60%;
+  height: 3px;
+  background: linear-gradient(90deg, var(--sakura-1), var(--sakura-2), var(--sakura-3));
+  border-radius: 3px;
+}
+
+/* --------------------------------------------------------------------------
+   25. 模态框
+   -------------------------------------------------------------------------- */
+.modal-overlay {
+  backdrop-filter: blur(8px) !important;
+  -webkit-backdrop-filter: blur(8px) !important;
+}
+
+.modal-dialog {
+  border-radius: var(--mikus-radius-xl, 20px) !important;
+  box-shadow: var(--mikus-shadow-lg) !important;
+  animation: mikus-modal-in 0.3s cubic-bezier(0.34, 1.56, 0.64, 1) !important;
+  overflow: hidden !important;
+}
+
+@keyframes mikus-modal-in {
+  from {
+    opacity: 0;
+    transform: scale(0.95) translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.modal-header {
+  border-bottom: 1px solid var(--border-color) !important;
+  padding: 20px 24px !important;
+}
+
+.modal-title {
+  background: linear-gradient(135deg, var(--text-primary) 0%, var(--accent-pink) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-weight: 700 !important;
+}
+
+.modal-close {
+  border-radius: 50% !important;
+  width: 32px !important;
+  height: 32px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1) !important;
+}
+
+.modal-close:hover {
+  transform: rotate(90deg) !important;
+  color: var(--accent-red) !important;
+  background: rgba(255, 107, 122, 0.1) !important;
+}
+
+.modal-footer {
+  border-top: 1px solid var(--border-color) !important;
+}
+
+/* --------------------------------------------------------------------------
+   26. 管理面板
+   -------------------------------------------------------------------------- */
+.admin-container {
+  background: transparent !important;
+}
+
+.panel-header {
+  border-bottom: 1px solid var(--border-color) !important;
+}
+
+.panel-title {
+  background: linear-gradient(135deg, var(--text-primary) 0%, var(--accent-pink) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-weight: 700 !important;
+  text-shadow: none !important;
+}
+
+.stats-grid {
+  border-radius: var(--mikus-radius-md, 12px) !important;
+  overflow: hidden;
+}
+
+.stat-card {
+  border-radius: 0 !important;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+.stat-card:hover {
+  background: var(--bg-hover) !important;
+}
+
+.settings-section {
+  border-radius: var(--mikus-radius-md, 12px) !important;
+}
+
+.form-input,
+.form-select,
+.form-textarea {
+  border-radius: var(--mikus-radius-sm, 8px) !important;
+  background: var(--input-bg) !important;
+  border: 1px solid var(--input-border) !important;
+  transition: all 0.25s ease !important;
+}
+
+.form-input:focus,
+.form-select:focus,
+.form-textarea:focus {
+  border-color: var(--accent-pink) !important;
+  box-shadow: 0 0 0 3px rgba(232, 102, 138, 0.15) !important;
+  outline: none;
+}
+
+/* --------------------------------------------------------------------------
+   27. 按钮
+   -------------------------------------------------------------------------- */
+.btn {
+  border-radius: var(--mikus-radius-sm, 8px) !important;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-primary {
+  background: var(--accent-pink) !important;
+  border-color: var(--accent-pink) !important;
+  color: #fff !important;
+}
+
+.btn-primary:hover {
+  filter: brightness(1.1);
+  box-shadow: 0 4px 12px rgba(232, 102, 138, 0.3) !important;
+}
+
+.btn-green {
+  background: var(--accent-green) !important;
+  border-color: var(--accent-green) !important;
+  color: #fff !important;
+}
+
+.btn-blue {
+  background: var(--accent-blue) !important;
+  border-color: var(--accent-blue) !important;
+  color: #fff !important;
+}
+
+.btn-red {
+  background: var(--accent-red) !important;
+  border-color: var(--accent-red) !important;
+  color: #fff !important;
+}
+
+/* --------------------------------------------------------------------------
+   28. 登录页
+   -------------------------------------------------------------------------- */
+.login-overlay {
+  background: rgba(15, 10, 21, 0.6) !important;
+  backdrop-filter: blur(20px) saturate(1.1) !important;
+  -webkit-backdrop-filter: blur(20px) saturate(1.1) !important;
+}
+
+.login-container {
+  border-radius: var(--mikus-radius-xl, 20px) !important;
+  box-shadow: var(--mikus-shadow-lg) !important;
+}
+
+.login-title {
+  background: linear-gradient(135deg, var(--text-primary) 0%, var(--accent-pink) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.login-input {
+  border-radius: var(--mikus-radius-sm, 8px) !important;
+}
+
+.login-input:focus {
+  border-color: var(--accent-pink) !important;
+  box-shadow: 0 0 0 3px rgba(232, 102, 138, 0.15) !important;
+}
+
+.login-btn {
+  border-radius: var(--mikus-radius-sm, 8px) !important;
+  background: var(--accent-pink) !important;
+  color: #fff !important;
+  transition: all 0.25s ease !important;
+}
+
+.login-btn:hover {
+  filter: brightness(1.1);
+  box-shadow: 0 4px 12px rgba(232, 102, 138, 0.3) !important;
+}
+
+/* --------------------------------------------------------------------------
+   29. 加载状态
+   -------------------------------------------------------------------------- */
+#loading {
+  background: var(--bg-primary) !important;
+}
+
+.loading-spinner {
+  border: 3px solid var(--border-color) !important;
+  border-top-color: var(--accent-pink) !important;
+}
+
+.loading-text {
+  color: var(--text-secondary) !important;
+}
+
+/* --------------------------------------------------------------------------
+   30. 底栏
+   -------------------------------------------------------------------------- */
+.footer {
+  border-radius: var(--mikus-radius-sm, 8px) !important;
+  }
+
+.status-bar {
+  border-radius: var(--mikus-radius-sm, 8px) !important;
+}
+
+/* --------------------------------------------------------------------------
+   31. 服务器行 (表格)
+   -------------------------------------------------------------------------- */
+.server-row {
+  transition: all 0.2s ease !important;
+}
+
+.server-row:hover {
+  background: var(--bg-hover) !important;
+}
+
+.server-name-link {
+  color: var(--text-primary) !important;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.server-name-link:hover {
+  color: var(--accent-pink) !important;
+}
+
+/* --------------------------------------------------------------------------
+   32. 回退按钮
+   -------------------------------------------------------------------------- */
+.back-btn {
+  border-radius: var(--mikus-radius-sm, 8px) !important;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+.back-btn:hover {
+  color: var(--accent-pink) !important;
+  border-color: var(--accent-pink) !important;
+}
+
+/* --------------------------------------------------------------------------
+   33. 渐入动画
+   -------------------------------------------------------------------------- */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInScale {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.server-card {
+  animation: fadeInUp 0.4s ease forwards;
+}
+
+.server-card:nth-child(1) { animation-delay: 0.05s; }
+.server-card:nth-child(2) { animation-delay: 0.1s; }
+.server-card:nth-child(3) { animation-delay: 0.15s; }
+.server-card:nth-child(4) { animation-delay: 0.2s; }
+.server-card:nth-child(5) { animation-delay: 0.25s; }
+.server-card:nth-child(6) { animation-delay: 0.3s; }
+.server-card:nth-child(7) { animation-delay: 0.35s; }
+.server-card:nth-child(8) { animation-delay: 0.4s; }
+.server-card:nth-child(9) { animation-delay: 0.45s; }
+.server-card:nth-child(10) { animation-delay: 0.5s; }
+
+.stat-item {
+  animation: fadeInUp 0.4s ease forwards;
+}
+
+.stat-item:nth-child(1) { animation-delay: 0.05s; }
+.stat-item:nth-child(2) { animation-delay: 0.1s; }
+.stat-item:nth-child(3) { animation-delay: 0.15s; }
+.stat-item:nth-child(4) { animation-delay: 0.2s; }
+
+/* --------------------------------------------------------------------------
+   34. 服务器网格
+   -------------------------------------------------------------------------- */
+.servers-grid {
+  gap: 16px !important;
+}
+
+/* --------------------------------------------------------------------------
+   35. 浅色模式特殊覆盖
+   -------------------------------------------------------------------------- */
+body.light .server-card {
+  box-shadow: 0 2px 8px rgba(45, 27, 61, 0.05), 0 1px 2px rgba(45, 27, 61, 0.04) !important;
+}
+
+body.light .server-card::after {
+  background: linear-gradient(135deg, transparent 40%, rgba(0, 0, 0, 0.02) 100%) !important;
+}
+
+body.light .chart-card {
+  box-shadow: 0 2px 8px rgba(45, 27, 61, 0.05) !important;
+}
+
+body.light .pulse-dot.online {
+  box-shadow: 0 0 6px rgba(76, 175, 125, 0.4) !important;
+}
+
+body.light .pulse-dot.offline {
+  box-shadow: 0 0 6px rgba(231, 76, 94, 0.4) !important;
+}
+
+body.light .site-title,
+body.light .host-name,
+body.light .panel-title,
+body.light .stat-main-value,
+body.light .chart-current-value {
+  text-shadow: none !important;
+}
+
+body.light .modal-overlay {
+  background: rgba(0, 0, 0, 0.3) !important;
+}
+
+body.light .form-input:focus,
+body.light .form-select:focus,
+body.light .form-textarea:focus {
+  box-shadow: 0 0 0 3px rgba(232, 102, 138, 0.1) !important;
+}
+
+body.light .toolbar-input:focus {
+  box-shadow: 0 0 0 3px rgba(232, 102, 138, 0.1) !important;
+}
+
+/* --------------------------------------------------------------------------
+   36. 响应式调整
+   -------------------------------------------------------------------------- */
+@media (max-width: 768px) {
+  .terminal-header {
+    padding: 8px 12px !important;
+  }
+
+  .terminal-dots {
+    width: auto !important;
+  }
+
+  .server-card {
+    padding: 16px !important;
+  }
+
+  .server-card:hover {
+    transform: translateY(-2px) !important;
+  }
+
+  .modal-dialog {
+    border-radius: var(--mikus-radius-lg, 16px) !important;
+    margin: 12px;
+  }
+
+  .servers-grid {
+    grid-template-columns: 1fr !important;
+  }
+}
+/* ==========================================================================
+   Mikus 横幅 / 加载界面 / Mascot 增强
+   ========================================================================== */
+
+.mikus-welcome {
+  position: relative;
+  margin: 16px 0 16px;
+  padding: 20px 28px;
+  border-radius: var(--mikus-radius-lg, 16px);
+  z-index: 1;
+  animation: mikusGradientShift 8s ease infinite, mikusFadeDown 0.4s ease;
+  background: linear-gradient(135deg, var(--bg-card) 0%, var(--bg-hover) 50%, var(--bg-card) 100%);
+  background-size: 200% 200%;
+  animation: mikusGradientShift 8s ease infinite;
+  border: 1px solid var(--border-color);
+  border-radius: var(--mikus-radius-lg, 16px);
+  box-shadow: var(--mikus-shadow-card, 0 2px 8px rgba(0,0,0,0.2));
+  overflow: visible;
+}
+@keyframes mikusGradientShift { 0%,100%{background-position:0% 50%} 50%{background-position:100% 50%} }
+
+.mikus-welcome-deco { position:absolute; inset:0; pointer-events:none; overflow:hidden; }
+.mikus-deco { position:absolute; border-radius:50%; opacity:0.1; }
+.mikus-deco-1 { width:200px; height:200px; background:var(--accent-pink,#ff8fa3); top:-80px; right:-50px; animation:mikusFloat 6s ease-in-out infinite; }
+.mikus-deco-2 { width:150px; height:150px; background:var(--accent-blue,#7ab3f7); bottom:-60px; left:-40px; animation:mikusFloat 8s ease-in-out infinite reverse; }
+.mikus-deco-3 { width:100px; height:100px; background:var(--accent-green,#5ec492); top:50%; right:20%; animation:mikusFloat 7s ease-in-out infinite 1s; }
+
+.mikus-welcome-flex { position:relative; z-index:1; display:flex; justify-content:space-between; align-items:center; gap:16px; flex-wrap:wrap; }
+.mikus-welcome-greet { display:flex; align-items:center; gap:16px; }
+.mikus-greet-icon {
+  width:110px; height:110px; object-fit:contain;
+  filter: drop-shadow(0 4px 12px rgba(232,102,138,0.35));
+  animation: mikusBounce 2.4s ease-in-out infinite;
+  transform-origin: bottom center;
+}
+.mikus-greet-info { display:flex; flex-direction:column; gap:4px; }
+.mikus-greet-text {
+  font-size:1.6rem; font-weight:700;
+  background: linear-gradient(135deg, var(--text-primary,#e8dff0) 0%, var(--accent-pink,#ff8fa3) 100%);
+  -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
+}
+.mikus-greet-sub { font-size:0.85rem; color:var(--text-secondary,#a899b8); font-weight:400; }
+.mikus-welcome-time { display:flex; flex-direction:column; align-items:flex-end; gap:4px; }
+.mikus-time-date { font-size:0.9rem; color:var(--text-secondary,#a899b8); font-weight:500; }
+.mikus-time-val {
+  font-size:1.8rem; font-weight:700; font-family:var(--terminal-font,monospace);
+  background: linear-gradient(135deg, var(--accent-pink,#ff8fa3) 0%, #ffb7c5 100%);
+  -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
+  letter-spacing:0.05em;
+}
+
+/* 浅色模式横幅微调 */
+body.light .mikus-welcome { box-shadow: 0 2px 8px rgba(45,27,61,0.05); }
+body.light .mikus-greet-icon { filter: drop-shadow(0 4px 12px rgba(232,102,138,0.25)); }
+
+/* 加载界面（#loading 被替换前的兜底，以及 mikus-preloader 的样式补强） */
+#loading { background:#0f0a15 !important; }
+#loading .loading-spinner {
+  width:48px !important; height:48px !important;
+  border:3px solid #2d2040 !important; border-top-color:#ff8fa3 !important;
+}
+
+/* Mascot 浮窗增强 */
+#mikus-mascot img { will-change: transform; }
+
+@media (max-width: 768px) {
+  .mikus-welcome { padding:16px; margin:12px; }
+  .mikus-greet-icon { width:72px; height:72px; }
+  .mikus-greet-text { font-size:1.2rem; }
+  .mikus-time-val { font-size:1.2rem; }
+  .mikus-welcome-time { align-items:flex-end; }
+}
+
+/* 横幅固定后给页面内容留空间 */
+
+@keyframes mikusFadeDown { from { opacity:0; transform: translateX(-50%) translateY(-12px); } to { opacity:1; transform: translateX(-50%) translateY(0); } }
+@media (max-width: 768px) {
+  .mikus-welcome { padding: 14px 16px; }
+  .mikus-greet-icon { width:64px; height:64px; }
+  .mikus-greet-text { font-size:1.1rem; }
+  .mikus-time-val { font-size:1rem; }
+}
+
+/* ==========================================================================
+   nav-area 大卡片融合 — 无分隔线，横幅背景铺满
+   ========================================================================== */
+.nav-area {
+  background: linear-gradient(135deg, var(--bg-card) 0%, var(--bg-hover) 40%, var(--bg-tertiary, var(--bg-hover)) 60%, var(--bg-card) 100%) !important;
+  background-size: 200% 200% !important;
+  animation: mikusGradientShift 8s ease infinite !important;
+  border: 1px solid var(--border-color) !important;
+  border-top: 1px solid var(--border-color) !important;
+  border-radius: var(--mikus-radius-lg, 16px) !important;
+  padding: 20px 24px !important;
+  margin-bottom: 20px !important;
+  box-shadow: var(--mikus-shadow-card, 0 2px 8px rgba(0,0,0,0.2)) !important;
+  position: relative !important;
+  overflow: hidden !important;
+}
+
+/* 装饰圆铺到整个 nav-area 背景 */
+.nav-area::before,
+.nav-area::after {
+  content: '' !important;
+  position: absolute !important;
+  border-radius: 50% !important;
+  pointer-events: none !important;
+  z-index: 0 !important;
+}
+.nav-area::before {
+  width: 200px !important; height: 200px !important;
+  background: var(--accent-pink, #ff8fa3) !important;
+  opacity: 0.08 !important;
+  top: -80px !important; right: -50px !important;
+  animation: mikusFloat 6s ease-in-out infinite !important;
+}
+.nav-area::after {
+  width: 150px !important; height: 150px !important;
+  background: var(--accent-blue, #7ab3f7) !important;
+  opacity: 0.06 !important;
+  bottom: -60px !important; left: -40px !important;
+  animation: mikusFloat 8s ease-in-out infinite reverse !important;
+}
+
+/* 内容层提到装饰圆之上 */
+.nav-area > * { position: relative; z-index: 1; }
+
+/* 去掉所有分隔线，三块无缝衔接 */
+.nav-area .header-row {
+  margin-bottom: 16px !important;
+  padding-bottom: 0 !important;
+  border-bottom: none !important;
+}
+.nav-area .filter-bar {
+  margin-top: 16px !important;
+  padding-top: 0 !important;
+  border-top: none !important;
+  margin-bottom: 0 !important;
+}
+
+/* 横幅完全融入：无独立背景/边框/圆角/阴影/分隔线 */
+#mikus-banner.mikus-welcome {
+  background: transparent !important;
+  border: none !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  margin: 0 !important;
+  padding: 8px 0 12px !important;
+  animation: none !important;
+}
+/* 横幅自带装饰圆隐藏，避免和 nav-area 的重复 */
+#mikus-banner .mikus-welcome-deco { display: none !important; }
+
+/* 浅色模式 */
+body.light .nav-area {
+  box-shadow: 0 2px 8px rgba(45,27,61,0.05) !important;
+}
+
+@media (max-width: 768px) {
+  .nav-area { padding: 14px 16px !important; }
+  #mikus-banner.mikus-welcome { padding: 6px 0 10px !important; }
+}
+
+/* ==========================================================================
+   nav-area 内樱花飘落（纯 CSS，限制在块内）
+   ========================================================================== */
+.mikus-sakura {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 0;
+}
+.mikus-sakura-petal {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  background: var(--accent-pink, #ff8fa3);
+  border-radius: 50% 0 50% 50%;
+  opacity: 0;
+  animation: mikusSakuraFall linear infinite;
+  will-change: transform, opacity;
+}
+@keyframes mikusSakuraFall {
+  0%   { transform: translateY(0) rotate(0deg) translateX(0) scale(0.6); opacity: 0; }
+  5%   { opacity: 0.45; }
+  20%  { transform: translateY(60px) rotate(90deg) translateX(10px) scale(0.9); opacity: 0.55; }
+  40%  { transform: translateY(140px) rotate(180deg) translateX(-15px) scale(0.75); opacity: 0.4; }
+  60%  { transform: translateY(220px) rotate(270deg) translateX(8px) scale(0.82); opacity: 0.3; }
+  80%  { transform: translateY(300px) rotate(320deg) translateX(-6px) scale(0.65); opacity: 0.2; }
+  95%  { opacity: 0.08; }
+  100% { transform: translateY(360px) rotate(360deg) translateX(12px) scale(0.45); opacity: 0; }
+}
+
+/* 隐藏 nav-area 中的 site-title */
+.nav-area .site-title { display: none !important; }
+
+/* 视图切换和筛选栏同行：filter-bar 用 flex row */
+.nav-area .header-row { margin-bottom: 0 !important; }
+.nav-area .filter-bar { margin-top: 0 !important; }
+
+/* 顶部 terminal 标题放大 */
+.terminal-title { font-size: 1.15rem !important; }
+
+/* 页脚署名：纯 CSS，不用 JS */
+
+/* 页脚署名：不换行，字跟父级 */
+.mikus-credit {
+  display: inline;
+  color: inherit;
+  font: inherit;
+}
+
+/* ============================================================
+   毛玻璃效果 — 半透明卡片 + backdrop-filter
+   ============================================================ */
+.server-card,
+.chart-card,
+.host-card,
+.settings-section,
+.table-container,
+.footer,
+.modal-dialog,
+.terminal-header,
+.nav-area,
+.main-panel,
+.login-container,
+.panel-header,
+.tab-content,
+.table-wrapper,
+.admin-loading-overlay {
+  background: var(--bg-card) !important;
+  backdrop-filter: blur(var(--glass-blur, 18px)) saturate(var(--glass-saturate, 1.1)) !important;
+  -webkit-backdrop-filter: blur(var(--glass-blur, 18px)) saturate(var(--glass-saturate, 1.1)) !important;
+  border-radius: var(--mikus-radius-lg, 16px) !important;
+}
+
+.global-stats,
+.stats-grid,
+.view-toggle,
+.btn,
+.filter-tag,
+.stat-bar-container,
+.modal-overlay,
+.stat-card,
+.toolbar,
+.form-input,
+.form-select,
+.form-textarea,
+.toolbar-input,
+.login-input,
+.settings-grid {
+  backdrop-filter: blur(var(--glass-blur-light, 6px)) saturate(var(--glass-saturate, 1.1)) !important;
+  -webkit-backdrop-filter: blur(var(--glass-blur-light, 6px)) saturate(var(--glass-saturate, 1.1)) !important;
+}
+
+
+
+/* 管理面板元素半透明背景 — 让 backdrop-filter 可见 */
+.login-container,
+.panel-header,
+.tab-content,
+.table-wrapper,
+.admin-loading-overlay,
+.stat-card,
+.toolbar,
+.settings-grid,
+.settings-section,
+.main-panel {
+  background: var(--bg-card) !important;
+}
+
+/* ============================================================
+   毛玻璃修复 — 中间容器透明，让 body 背景图可被 backdrop-filter 模糊
+   ============================================================ */
+#app,
+.container,
+.admin-container,
+.view-panel,
+.group-section,
+.servers-grid,
+.charts-container,
+.sysinfo-grid {
+  background: transparent !important;
+}
+
+/* body 背景层：实色底 + 保留用户通过后台设置的 background-image */
+html, body {
+  background-color: var(--bg-primary) !important;
+}
