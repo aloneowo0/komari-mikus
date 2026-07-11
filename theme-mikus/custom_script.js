@@ -22,11 +22,15 @@
         '--mikus-surface:rgba(30,21,48,.28);' +
         '--mikus-surface-strong:rgba(38,28,58,.42);' +
         '--mikus-surface-soft:rgba(30,21,48,.14);' +
+        '--mikus-admin-surface:rgba(24,17,39,.72);' +
+        '--mikus-admin-surface-soft:rgba(30,21,48,.52);' +
       '}' +
       'body.light{' +
         '--mikus-surface:rgba(255,255,255,.38);' +
         '--mikus-surface-strong:rgba(255,255,255,.56);' +
         '--mikus-surface-soft:rgba(255,255,255,.18);' +
+        '--mikus-admin-surface:rgba(255,255,255,.86);' +
+        '--mikus-admin-surface-soft:rgba(255,255,255,.68);' +
       '}' +
       'body::after{display:block!important;opacity:.28!important;}' +
       '.server-card,.chart-card,.host-card,.settings-section,.table-container,.table-wrapper,.footer,.main-panel,.panel-header,.tab-content,.admin-loading-overlay,.quota-section,.disabled-container,.user-menu-dropdown,.map-wrapper,.status-bar,.global-stats,.stats-grid,.view-toggle,.modal-overlay,.settings-grid,.ping-panel,.time-selector,.tabs{' +
@@ -54,6 +58,17 @@
         'background:var(--mikus-surface)!important;' +
       '}' +
       '.modal-overlay{background:rgba(0,0,0,.34)!important;}' +
+      'html.mikus-admin-servers .table-wrapper,' +
+      'html.mikus-admin-servers .servers-grid{' +
+        'background:var(--mikus-admin-surface-soft)!important;' +
+        'box-shadow:inset 0 1px 0 rgba(255,255,255,.045),var(--mikus-shadow-card)!important;' +
+      '}' +
+      'html.mikus-admin-servers .table-container,' +
+      'html.mikus-admin-servers .server-card,' +
+      'html.mikus-admin-servers .host-card{' +
+        'background:var(--mikus-admin-surface)!important;' +
+        'box-shadow:inset 0 1px 0 rgba(255,255,255,.055),var(--mikus-shadow-card)!important;' +
+      '}' +
       '.nav-area{animation-duration:18s!important;}' +
       '.nav-area::before{animation-duration:14s!important;}' +
       '.nav-area::after{animation-duration:18s!important;}' +
@@ -63,6 +78,12 @@
         'transition:transform .2s ease,border-color .2s ease,background-color .2s ease,box-shadow .2s ease!important;' +
       '}' +
       '@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;}.nav-area,.nav-area::before,.nav-area::after,#mikus-mascot img,.mikus-sakura-petal{animation-duration:1ms!important;animation-iteration-count:1!important;}}';
+  }
+
+  function updateRouteClasses() {
+    var hash = (window.location.hash || '').toLowerCase();
+    var isAdminServers = hash.indexOf('admin') !== -1 && (hash.indexOf('server') !== -1 || hash.indexOf('host') !== -1);
+    document.documentElement.classList.toggle('mikus-admin-servers', isAdminServers);
   }
 
   function injectBannerCorrection() {
@@ -121,5 +142,8 @@
   }
 
   injectLowPowerStyles();
+  updateRouteClasses();
+  window.addEventListener('hashchange', updateRouteClasses);
+  window.addEventListener('popstate', updateRouteClasses);
   loadCore();
 })();
