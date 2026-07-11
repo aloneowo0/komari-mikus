@@ -161,10 +161,13 @@
     } catch (e) {}
   }
 
+  var navTimer = null;
+
   function waitForNav() {
     var observer;
     function arrange() {
       var nav, viewToggle, filterBar, headerRow, filterTag;
+      if (window.location.hash.indexOf('admin') !== -1 || window.location.hash.indexOf('server') !== -1) return;
       nav = document.querySelector('.nav-area');
       if (!nav) return;
       applyBanner();
@@ -180,9 +183,13 @@
         if (filterTag) filterTag.style.marginLeft = 'auto';
       }
     }
+    function debounced() {
+      if (navTimer) return;
+      navTimer = setTimeout(function() { navTimer = null; arrange(); }, 150);
+    }
     try {
       arrange();
-      observer = new MutationObserver(arrange);
+      observer = new MutationObserver(debounced);
       observer.observe(document.body, { childList: true, subtree: true });
     } catch (e) {}
   }
@@ -241,15 +248,20 @@
   }
 
   function applyFooterCredit() {
-    setInterval(function() {
+    var timer;
+    function tryFooter() {
       var footer, version;
       footer = document.querySelector('.footer.status-bar');
-      if (!footer || footer.querySelector('.mikus-done')) return;
+      if (!footer || footer.querySelector('.mikus-done')) return false;
       version = footer.querySelector('span');
       footer.innerHTML = '<span>' + (version ? version.textContent : '') + '</span>' +
         '<span>Powered by <a href="https://github.com/huilang-me/CF-Server-Monitor" target="_blank">CF-Server-Monitor</a>' +
         '<span class="mikus-credit"> | Theme by <a href="https://github.com/mikus-loli/komari-mikus" target="_blank">komari-mikus</a>, ported by <a href="https://github.com/aloneowo0/cf-monitor-mikus" target="_blank">aloneowo</a></span></span>' +
         '<span class="mikus-done" style="display:none"></span>';
+      return true;
+    }
+    timer = setInterval(function() {
+      if (tryFooter()) clearInterval(timer);
     }, 400);
   }
 

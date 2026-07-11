@@ -134,31 +134,11 @@ body::after {
 .global-stats,
 .stats-grid,
 .view-toggle,
-.lang-toggle,
-.theme-toggle,
-.btn,
-.filter-tag,
-.stat-bar-container,
-.stat-bar-small,
 .modal-overlay,
-.stat-card,
-.toolbar,
-.form-input,
-.form-select,
-.form-textarea,
-.toolbar-input,
-.toolbar-select,
-.login-input,
 .settings-grid,
 .ping-panel,
-.cmd-input-wrapper,
-.checkbox-item,
 .time-selector,
-.tabs,
-.status-badge,
-.alert,
-.table-status-indicator-inline,
-.loading-more {
+.tabs {
   backdrop-filter: blur(var(--glass-blur-light)) saturate(var(--glass-saturate)) !important;
   -webkit-backdrop-filter: blur(var(--glass-blur-light)) saturate(var(--glass-saturate)) !important;
 }
