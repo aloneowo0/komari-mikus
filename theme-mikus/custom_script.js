@@ -60,6 +60,9 @@
       'html.mikus-dashboard .server-card{' +
         'background:var(--mikus-dashboard-card)!important;' +
       '}' +
+      'html.mikus-dashboard .servers-grid{' +
+        'grid-template-columns:repeat(auto-fit,minmax(380px,1fr))!important;' +
+      '}' +
       '.admin-loading-overlay{' +
         'background:var(--mikus-surface-strong)!important;' +
       '}' +
@@ -107,6 +110,7 @@
       '.server-card,.chart-card,.host-card,.filter-tag,.stat-item,.stat-card,.sysinfo-item{' +
         'transition:transform .2s ease,border-color .2s ease,background-color .2s ease,box-shadow .2s ease!important;' +
       '}' +
+      '@media(max-width:768px){html.mikus-dashboard .servers-grid{grid-template-columns:1fr!important;}}' +
       '@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;}.nav-area,.nav-area::before,.nav-area::after,#mikus-mascot img,.mikus-sakura-petal{animation-duration:1ms!important;animation-iteration-count:1!important;}}';
   }
 
