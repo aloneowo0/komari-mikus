@@ -1070,9 +1070,7 @@ body.light .toolbar-input:focus {
   position: relative;
   margin: 16px 0 16px;
   padding: 20px 28px;
-  border-radius: var(--mikus-radius-lg, 16px);
   z-index: 1;
-  animation: mikusGradientShift 8s ease infinite, mikusFadeDown 0.4s ease;
   background: linear-gradient(135deg, var(--bg-card) 0%, var(--bg-hover) 50%, var(--bg-card) 100%);
   background-size: 200% 200%;
   animation: mikusGradientShift 8s ease infinite;
@@ -1128,21 +1126,11 @@ body.light .mikus-greet-icon { filter: drop-shadow(0 4px 12px rgba(232,102,138,0
 #mikus-mascot img { will-change: transform; }
 
 @media (max-width: 768px) {
-  .mikus-welcome { padding:16px; margin:12px; }
-  .mikus-greet-icon { width:72px; height:72px; }
-  .mikus-greet-text { font-size:1.2rem; }
-  .mikus-time-val { font-size:1.2rem; }
-  .mikus-welcome-time { align-items:flex-end; }
-}
-
-/* 横幅固定后给页面内容留空间 */
-
-@keyframes mikusFadeDown { from { opacity:0; transform: translateX(-50%) translateY(-12px); } to { opacity:1; transform: translateX(-50%) translateY(0); } }
-@media (max-width: 768px) {
-  .mikus-welcome { padding: 14px 16px; }
+  .mikus-welcome { padding: 14px 16px; margin: 12px; }
   .mikus-greet-icon { width:64px; height:64px; }
   .mikus-greet-text { font-size:1.1rem; }
   .mikus-time-val { font-size:1rem; }
+  .mikus-welcome-time { align-items:flex-end; }
 }
 
 /* ==========================================================================
@@ -1191,12 +1179,12 @@ body.light .mikus-greet-icon { filter: drop-shadow(0 4px 12px rgba(232,102,138,0
 
 /* 去掉所有分隔线，三块无缝衔接 */
 .nav-area .header-row {
-  margin-bottom: 16px !important;
+  margin-bottom: 0 !important;
   padding-bottom: 0 !important;
   border-bottom: none !important;
 }
 .nav-area .filter-bar {
-  margin-top: 16px !important;
+  margin-top: 0 !important;
   padding-top: 0 !important;
   border-top: none !important;
   margin-bottom: 0 !important;
@@ -1259,10 +1247,6 @@ body.light .nav-area {
 /* 隐藏 nav-area 中的 site-title */
 .nav-area .site-title { display: none !important; }
 
-/* 视图切换和筛选栏同行：filter-bar 用 flex row */
-.nav-area .header-row { margin-bottom: 0 !important; }
-.nav-area .filter-bar { margin-top: 0 !important; }
-
 /* 顶部 terminal 标题放大 */
 .terminal-title { font-size: 1.15rem !important; }
 
@@ -1321,16 +1305,9 @@ body.light .nav-area {
 
 
 /* 管理面板元素半透明背景 — 让 backdrop-filter 可见 */
-.login-container,
-.panel-header,
-.tab-content,
-.table-wrapper,
-.admin-loading-overlay,
 .stat-card,
 .toolbar,
-.settings-grid,
-.settings-section,
-.main-panel {
+.settings-grid {
   background: var(--bg-card) !important;
 }
 
