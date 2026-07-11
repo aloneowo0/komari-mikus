@@ -25,6 +25,7 @@
         '--mikus-surface:rgba(30,21,48,.28);' +
         '--mikus-surface-strong:rgba(38,28,58,.42);' +
         '--mikus-surface-soft:rgba(30,21,48,.14);' +
+        '--mikus-dashboard-card:rgba(30,21,48,.48);' +
         '--mikus-admin-surface:rgba(24,17,39,.72);' +
         '--mikus-admin-surface-soft:rgba(30,21,48,.52);' +
         '--mikus-admin-table-head:rgba(32,23,50,.76);' +
@@ -36,6 +37,7 @@
         '--mikus-surface:rgba(255,255,255,.38);' +
         '--mikus-surface-strong:rgba(255,255,255,.56);' +
         '--mikus-surface-soft:rgba(255,255,255,.18);' +
+        '--mikus-dashboard-card:rgba(255,255,255,.62);' +
         '--mikus-admin-surface:rgba(255,255,255,.86);' +
         '--mikus-admin-surface-soft:rgba(255,255,255,.68);' +
         '--mikus-admin-table-head:rgba(247,244,249,.78);' +
@@ -54,6 +56,9 @@
       '.server-card,.chart-card,.host-card,.settings-section,.table-container,.footer,.quota-section,.disabled-container,.user-menu-dropdown,.map-wrapper{' +
         'background:var(--mikus-surface)!important;' +
         'box-shadow:inset 0 1px 0 rgba(255,255,255,.04),var(--mikus-shadow-card)!important;' +
+      '}' +
+      'html.mikus-dashboard .server-card{' +
+        'background:var(--mikus-dashboard-card)!important;' +
       '}' +
       '.admin-loading-overlay{' +
         'background:var(--mikus-surface-strong)!important;' +
@@ -118,11 +123,13 @@
   function updateRouteClasses() {
     var hash = (window.location.hash || '').toLowerCase();
     var isAdmin = hash.indexOf('admin') !== -1;
+    var isDashboard = hash === '' || hash === '#' || hash === '#/';
     var isAdminServers = isAdmin && (
       hash.indexOf('server') !== -1 ||
       hash.indexOf('host') !== -1 ||
       isServerTableVisible()
     );
+    document.documentElement.classList.toggle('mikus-dashboard', isDashboard);
     document.documentElement.classList.toggle('mikus-admin-servers', isAdminServers);
     return isAdminServers;
   }
